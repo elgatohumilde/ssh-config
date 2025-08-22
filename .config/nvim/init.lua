@@ -9,6 +9,7 @@ vim.pack.add {
 
     { src = "https://github.com/aserowy/tmux.nvim" },
 
+    { src = "https://github.com/j-hui/fidget.nvim" },
     { src = "https://github.com/nvim-treesitter/nvim-treesitter" },
 
     { src = "https://github.com/folke/snacks.nvim" },
@@ -29,6 +30,8 @@ require "nvim-treesitter.configs".setup {
     auto_install = true,
     highlight = { enable = true },
 }
+
+require "fidget".setup {}
 
 require "undotree".setup()
 require "snacks".setup()
