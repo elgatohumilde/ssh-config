@@ -9,7 +9,7 @@ if not vim.loop.fs_stat(mini_path) then
     vim.fn.system({
         "git", "clone", "https://github.com/echasnovski/mini.nvim", mini_path
     })
-    vim.opt.rpt:append(mini_path)
+    vim.opt.rtp:append(mini_path)
 end
 require "mini.deps".setup()
 
