@@ -8,6 +8,6 @@ if [[ "$PREFIX" =~ '/data/data/com.termux/files/usr' ]] then
     termux-setup-storage
 
     pkg upgrade
-    pkg in neovim mandoc lua-language-server
+    pkg i neovim mandoc lua-language-server clang tmux
 
 fi
