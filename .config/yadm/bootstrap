@@ -3,11 +3,11 @@ set -euo pipefail
 
 yadm checkout .
 
-if [[ "$PREFIX" ~= '/data/data/com.termux/files/usr' ]] then
+if [[ "$PREFIX" =~ '/data/data/com.termux/files/usr' ]] then
 
     termux-setup-storage
 
     pkg upgrade
-    pkg in neovim mandoc
+    pkg in neovim mandoc lua-language-server
 
 fi
