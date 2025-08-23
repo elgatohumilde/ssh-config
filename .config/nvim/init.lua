@@ -20,6 +20,7 @@ add("stevearc/oil.nvim")
 add("aserowy/tmux.nvim")
 
 add("j-hui/fidget.nvim")
+add("mason-org/mason.nvim")
 add("nvim-treesitter/nvim-treesitter")
 
 add("folke/snacks.nvim")
@@ -40,6 +41,8 @@ require "nvim-treesitter.configs".setup {
 }
 
 require "fidget".setup {}
+
+require "mason".setup()
 
 require "undotree".setup()
 require "snacks".setup()
