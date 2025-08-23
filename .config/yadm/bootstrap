@@ -15,7 +15,7 @@ else
     if command -v apt &>/dev/null; then
 
         sudo apt update && sudo apt upgrade
-        sudo apt install -y neovim manpages lua-language-server clang tmux
+        sudo apt install -y neovim manpages clang tmux
 
     elif command -v pacman &>/dev/null; then
 
