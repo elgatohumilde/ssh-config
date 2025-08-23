@@ -4,21 +4,30 @@
 vim.g.mapleader = " "
 vim.g.maplocalleader = ","
 
-vim.pack.add {
-    { src = "https://github.com/stevearc/oil.nvim" },
+local mini_path = vim.fn.stdpath("data") .. "/site/pack/deps/start/mini.deps"
+if not vim.loop.fs_stat(mini_path) then
+    vim.fn.system({
+        "git", "clone", "https://github.com/echasnovski/mini.nvim", mini_path
+    })
+    vim.cmd("packadd mini.nvim")
+end
+require "mini.deps".setup()
 
-    { src = "https://github.com/aserowy/tmux.nvim" },
+local add = MiniDeps.add
 
-    { src = "https://github.com/j-hui/fidget.nvim" },
-    { src = "https://github.com/nvim-treesitter/nvim-treesitter" },
+add("stevearc/oil.nvim")
 
-    { src = "https://github.com/folke/snacks.nvim" },
-    { src = "https://github.com/echasnovski/mini.nvim" },
+add("aserowy/tmux.nvim")
 
-    { src = "https://github.com/nvim-lua/plenary.nvim" },
-    { src = "https://github.com/jiaoshijie/undotree" },
-}
-require "mini.icons".setup()
+add("j-hui/fidget.nvim")
+add("mason-org/mason.nvim")
+add("nvim-treesitter/nvim-treesitter")
+
+add("folke/snacks.nvim")
+add("echasnovski/mini.nvim")
+
+add("nvim-lua/plenary.nvim")
+add("jiaoshijie/undotree")
 
 require "mini.sessions".setup()
 require "mini.surround".setup()
@@ -93,11 +102,8 @@ vim.g.have_nerd_font = true
 vim.api.nvim_create_autocmd("TextYankPost", {
     callback = function() vim.highlight.on_yank() end
 })
-vim.api.nvim_create_autocmd({ "CursorMoved", "CursorMovedI" }, {
-    callback = function() vim.cmd "normal! zz" end
-})
 vim.api.nvim_create_autocmd("BufWritePre", {
-    callback = function() vim.lsp.buf.format() end
+    callback = function() vim.lsp.buf.format({ async = true }) end
 })
 
 
@@ -144,8 +150,6 @@ map("n", "<leader><leader>", Snacks.picker.buffers)
 
 map("n", "<leader>ut", require("undotree").toggle)
 
-map("n", "<leader>tp", ":TypstPreviewToggle<CR>")
-
 map("n", "K", vim.lsp.buf.hover)
 map("n", "<leader>f", vim.lsp.buf.format)
 map("n", "<leader>rn", vim.lsp.buf.rename)
@@ -168,5 +172,3 @@ vim.cmd [[
     hi Normal guibg=none
     hi LineNr guibg=none
 ]]
-
--- vim.pack.update()
