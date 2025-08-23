@@ -3,11 +3,24 @@ set -euo pipefail
 
 yadm checkout .
 
-if [[ "$PREFIX" =~ '/data/data/com.termux/files/usr' ]] then
+if [[ -n "${TERMUX_VERSION-}" ]] then
 
     termux-setup-storage
 
     pkg upgrade
     pkg i neovim mandoc lua-language-server clang tmux
+
+else
+
+    if command -v apt &>/dev/null; then
+
+        sudo apt update && sudo apt upgrade
+        sudo apt install -y neovim manpages lua-language-server clang tmux
+
+    elif command -v pacman &>/dev/null; then
+
+        sudo pacman -Syu neovim man-db lua-language-server clang tmux
+
+    fi
 
 fi
